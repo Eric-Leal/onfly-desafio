@@ -88,7 +88,9 @@ class ReportBuilder:
             for month, data in sorted(monthly.items())
         ]
 
-        ranked_hotels = sorted(hotels.items(), key=lambda item: (item[1]["amount"], item[0]))
+        # sort estável: desempate por hotel_id primeiro, depois valor decrescente
+        ranked_hotels = sorted(hotels.items(), key=lambda item: item[0])
+        ranked_hotels.sort(key=lambda item: item[1]["amount"], reverse=True)
         top_hotels = [
             {
                 "hotel_id": hotel_id,
